@@ -16,7 +16,7 @@ export const addTask = async (req,res) =>{
         errorHandler(res, 500, "Internal Server Error");
     }
 
-}
+} 
 
 // get tasks
 export const getTask = async (req,res) =>{
