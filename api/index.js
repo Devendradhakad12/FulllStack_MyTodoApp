@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from 'cors'
 import authRoute from './routes/auth.js'
 import userRoute from './routes/user.js'
+import taskRoute from './routes/task.js'
 import cookieParser from "cookie-parser";
  
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cookieParser())
 
 app.use("/api/auth",authRoute)
 app.use("/api/user",userRoute)
+app.use("/api/task",taskRoute)
 
 
 // database

@@ -25,8 +25,8 @@ export const cookieSetter = (res, token, set) => {
 
 export const checkauthUser = (res,token) =>{
  try {
-  const userid = jwt.verify(token,process.env.JWT_SECRETE)
- return userid.id
+  const user = jwt.verify(token,process.env.JWT_SECRETE)
+ return user.id
  } catch (error) {
   console.log(error);
   errorHandler(res, 500, "Internal Server Error");
