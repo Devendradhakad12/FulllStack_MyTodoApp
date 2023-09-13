@@ -3,10 +3,13 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+// generate token
 export const tokenGenerator = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRETE);
 };
 
+
+// set cookie in headers
 export const cookieSetter = (res, token, set) => {
   res.setHeader(
     "Set-cookie",
@@ -17,3 +20,15 @@ export const cookieSetter = (res, token, set) => {
     })
   );
 };
+
+// checkAuthUser
+
+export const checkauthUser = (res,token) =>{
+ try {
+  const userid = jwt.verify(token,process.env.JWT_SECRETE)
+ return userid.id
+ } catch (error) {
+  console.log(error);
+  errorHandler(res, 500, "Internal Server Error");
+ }
+}
