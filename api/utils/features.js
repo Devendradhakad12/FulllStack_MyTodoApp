@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // generate token
-export const tokenGenerator = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRETE);
+export const tokenGenerator = (id,username,email) => {
+  return jwt.sign({ id,username,email }, process.env.JWT_SECRETE);
 };
 
 
@@ -21,12 +21,12 @@ export const cookieSetter = (res, token, set) => {
   );
 };
 
-// checkAuthUser
+// checkAuthUser 
  
 export const checkauthUser = (res,token) =>{
  try {
   const user = jwt.verify(token,process.env.JWT_SECRETE)
- return user.id
+ return user
  } catch (error) {
   console.log(error);
   errorHandler(res, 500, "Internal Server Error");

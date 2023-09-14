@@ -10,7 +10,7 @@ export const register = async (req, res) => {
   if (!validationErrors.isEmpty())
     return errorHandler(res, 400, validationErrors.array()[0].msg);
 
-  const { username, email, password:pass } = req.body;
+  const { username, email, password: pass } = req.body;
   const hashPassword = await bcrypt.hash(pass, 10);
 
   try {
@@ -20,12 +20,16 @@ export const register = async (req, res) => {
     if (finduser) return errorHandler(res, 400, "User Already exist");
     const user = await User.create({ username, email, password: hashPassword });
 
-    const token = tokenGenerator(user._id);
+    const token = tokenGenerator(user._id, user.username, user.email);
     cookieSetter(res, token, true);
-const {password,...otherDetails} = user._doc
+    const { password, ...otherDetails } = user._doc;
     res
       .status(200)
-      .json({ success: true, message: `Welcome ${user.username}`, user:{...otherDetails} });
+      .json({
+        success: true,
+        message: `Welcome ${user.username}`,
+        user: { ...otherDetails },
+      });
   } catch (error) {
     console.log(error);
     errorHandler(res, 500, "Internal Server Error");
@@ -43,33 +47,28 @@ export const login = async (req, res) => {
     if (!passwordMatch)
       return errorHandler(res, 400, "Please enter vailid email or password");
 
-    const token = tokenGenerator(user._id);
+    const token = tokenGenerator(user._id, user.username, user.email);
     cookieSetter(res, token, true);
     const { password, ...otherDetails } = user._doc;
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: `Welcome ${user.username}`,
-        user: { ...otherDetails },
-      });
+    res.status(200).json({
+      success: true,
+      message: `Welcome ${user.username}`,
+      user: { ...otherDetails },
+    });
   } catch (error) {
     console.log(error);
     errorHandler(res, 500, "Internal Server Error");
   }
 };
 
-
 // logout
- export const logout = async (req,res) =>{
-try {
-  const token = tokenGenerator(null)
-  cookieSetter(res,token,false)
-  res
-  .status(200)
-  .json({ success: true, message: `Successfully logged out` });
-} catch (error) {
-  console.log(error);
-  errorHandler(res, 500, "Internal Server Error");
-}
- }
+export const logout = async (req, res) => {
+  try {
+    const token = tokenGenerator(null);
+    cookieSetter(res, token, false);
+    res.status(200).json({ success: true, message: `Successfully logged out` });
+  } catch (error) {
+    console.log(error);
+    errorHandler(res, 500, "Internal Server Error");
+  }
+};
