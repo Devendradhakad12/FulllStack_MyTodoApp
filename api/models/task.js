@@ -18,6 +18,10 @@ const TaskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  checked:{
+    type:Boolean,
+    default:false
+  }
 });
 
 export const Task = mongoose.model("Task", TaskSchema);
