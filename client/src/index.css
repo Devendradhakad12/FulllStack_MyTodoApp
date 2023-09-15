@@ -1,69 +1,46 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+.mainDiv {
+  @apply bg-slate-900 h-[100vh] text-white flex justify-center items-center flex-col;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.loginH1 {
+  @apply font-semibold mb-5 text-[30px];
 }
-a:hover {
-  color: #535bf2;
+.loginDiv {
+  @apply flex flex-col justify-center items-center bg-slate-700 p-5 rounded-lg border-t-4 border-orange-300 sm:w-[500px] w-[90%] shadow-md shadow-slate-200;
 }
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.loginForm {
+  @apply flex flex-col gap-6 sm:w-[60%] w-[80%];
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.formInput {
+  @apply bg-transparent w-[100%] border-b-2 border-orange-300 rounded-sm outline-none text-center py-4 text-[18px];
+}
+.lsBtn {
+  @apply mt-5 bg-orange-300 rounded-sm py-1 text-[25px] font-bold text-slate-700;
+}
+.loginP {
+  @apply my-8;
+}
+.bg {
+  @apply bg-orange-200;
+}
+.box {
+  @apply bg-orange-300 h-[100px] w-[100px] rounded-md flex justify-center items-center flex-col;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.homeTaskCompletedBox {
+  @apply sm:w-[400px] w-[90%] h-[250px]  rounded-xl flex flex-col justify-center items-center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.progressBarOutside {
+  @apply md:w-[70%] w-[100%] h-[30px] bg-[#22190a3d] rounded-full;
+}
+
+.progressBarInside {
+  @apply h-full flex justify-center items-center text-[18px] font-bold  text-center p-0.5 leading-none rounded-full;
+}
+.homeTaskBox {
+  @apply sm:w-[400px] w-[90%] h-[250px]  rounded-xl flex flex-col items-center pt-6;
 }

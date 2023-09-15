@@ -22,13 +22,14 @@ export const register = async (req, res) => {
 
     const token = tokenGenerator(user._id, user.username, user.email);
     cookieSetter(res, token, true);
-    const { password, ...otherDetails } = user._doc;
+   // const { password, ...otherDetails } = user._doc;
     res
       .status(200)
       .json({
         success: true,
         message: `Welcome ${user.username}`,
-        user: { ...otherDetails },
+        //user: { ...otherDetails },
+        token
       });
   } catch (error) {
     console.log(error);
@@ -49,11 +50,12 @@ export const login = async (req, res) => {
 
     const token = tokenGenerator(user._id, user.username, user.email);
     cookieSetter(res, token, true);
-    const { password, ...otherDetails } = user._doc;
+   // const { password, ...otherDetails } = user._doc;
     res.status(200).json({
       success: true,
       message: `Welcome ${user.username}`,
-      user: { ...otherDetails },
+         //user: { ...otherDetails },
+       token
     });
   } catch (error) {
     console.log(error);

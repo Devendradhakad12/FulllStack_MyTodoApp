@@ -5,6 +5,6 @@ import { loggedinuser } from "../controllers/user.js"
 const router =  express.Router()
 
  
-router.get("/",loggedinuser)
+router.post("/",loggedinuser)
 
 export default  router

@@ -15,7 +15,7 @@ export const cookieSetter = (res, token, set) => {
     "Set-cookie",
     serialize("token", set ? token : "", {
       path: "/",
-      httpOnly: true,
+    //  httpOnly: true,
       maxAge: set ? 15 * 24 * 60 * 60 * 1000 : 0, // expires 15 days
     })
   );
