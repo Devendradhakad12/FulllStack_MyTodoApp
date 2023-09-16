@@ -11,7 +11,7 @@ const Tasks = () => {
   const today = new Date().toDateString();
 
   const [mytask, setMytask] = useState([]);
-  const { task, loading } = useFetchAll();
+  const { task,error, loading } = useFetchAll();
 
   // filter pending or completed tasks
   useEffect(() => {
@@ -64,7 +64,7 @@ const Tasks = () => {
         {/* Tasks */}
         <div className=" bg flex gap-4 md:gap-[100px] justify-center items-center flex-wrap py-12">
        {
-        loading ? <Loader/> :    <Task today={today} mytask={mytask} location={location} />
+        loading ? <Loader/> :    <Task today={today} error={error} mytask={mytask} location={location} />
        }
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React  from "react";
  
-const Task = ({ mytask, location }) => {
+const Task = ({ mytask,error, location }) => {
   return (
     <>
       {mytask[0] ? (
@@ -29,7 +29,7 @@ const Task = ({ mytask, location }) => {
         </>
       ) : (
         <div>
-          <p className=" capitalize">{location} Task Not Available</p>
+             <p className=" capitalize">  {error ? <> {error} </> : <> {location} Task Not Available  </>  }  </p>
         </div>
       )}
     </>

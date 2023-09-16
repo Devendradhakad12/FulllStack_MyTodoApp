@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 const Nav = () => {
   const { token, username, email, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate()
   const handleLogout = () => {
     toast.success("You LoggedOut");
     dispatch({ type: "LOGOUT" });
+  navigate("/")
   };
   const [toggle, setToggle] = useState(false);
 
