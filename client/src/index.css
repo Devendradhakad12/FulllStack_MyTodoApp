@@ -44,3 +44,11 @@
 .homeTaskBox {
   @apply sm:w-[400px] w-[90%] h-[250px]  rounded-xl flex flex-col items-center pt-6;
 }
+
+.btn {
+  @apply bg-orange-800 px-5 py-3 rounded-lg text-[20px] font-semibold text-white transition-all duration-75 hover:scale-105 active:scale-95
+}
+
+.edbtn{
+  @apply  px-5 rounded-lg text-[20px] font-semibold transition-all duration-75 hover:scale-105 active:scale-95
+}

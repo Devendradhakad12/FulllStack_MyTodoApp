@@ -4,11 +4,13 @@ import { checkauthUser } from "../utils/features.js";
 
 // add task
 export const addTask = async (req, res) => {
-  const { title, description, checked } = req.body;
-  const token = req.headers.cookie?.split("=")[1];
+  const { title, description, checked, token } = req.body;
+  // const token = req.headers.cookie?.split("=")[1];
+
   try {
     if (!token) return errorHandler(res, 400, "Please Login");
-    const user = checkauthUser(res, token.toString());
+    // const user = checkauthUser(res, token.toString());
+    const user = checkauthUser(res, token);
     await Task.create({ title, description, creator: user.id, checked });
     res
       .status(200)
@@ -21,10 +23,12 @@ export const addTask = async (req, res) => {
 
 // get tasks
 export const getTask = async (req, res) => {
-  const token = req.headers.cookie?.split("=")[1];
+  // const token = req.headers.cookie?.split("=")[1];
+  let { token } = req.query;
   try {
     if (!token) return errorHandler(res, 400, "Please Login");
-    const user = checkauthUser(res, token.toString());
+    // const user = checkauthUser(res, token.toString());
+    const user = checkauthUser(res, token);
     const task = await Task.find({ creator: user.id }).populate("creator");
     res.status(200).json(task);
   } catch (error) {
@@ -35,12 +39,13 @@ export const getTask = async (req, res) => {
 
 // update task
 export const updateTask = async (req, res) => {
-  const { title, description, checked } = req.body;
+  const { title, description, checked, token } = req.body;
   const taskid = req.params.id;
-  const token = req.headers.cookie?.split("=")[1];
+  //const token = req.headers.cookie?.split("=")[1];
   try {
     if (!token) return errorHandler(res, 400, "Please Login");
-    const user = checkauthUser(res, token.toString());
+    // const user = checkauthUser(res, token.toString());
+    const user = checkauthUser(res, token);
     let task = await Task.findOne({ _id: taskid });
     if (!task) return errorHandler(res, 404, "Task Not Found");
     if (task.creator.toString() !== user.id)
@@ -62,15 +67,17 @@ export const updateTask = async (req, res) => {
 // delete Task
 export const deleteTask = async (req, res) => {
   const taskid = req.params.id;
-  const token = req.headers.cookie?.split("=")[1];
+  //  const token = req.headers.cookie?.split("=")[1];
+  const token = req.params.token;
   try {
     if (!token) return errorHandler(res, 400, "Please Login");
-    const user = checkauthUser(res, token.toString());
+    // const user = checkauthUser(res, token.toString());
+    const user = checkauthUser(res, token);
     let task = await Task.findOne({ _id: taskid });
     if (!task) return errorHandler(res, 404, "Task Not Found");
     if (task.creator.toString() !== user.id)
       return errorHandler(res, 400, "You are not Authorized");
-    if(task.checked !== true) return errorHandler(res, 400, "Please Select");
+    if (task.checked !== true) return errorHandler(res, 400, "Please Select");
     await task.deleteOne();
     res
       .status(200)
@@ -83,10 +90,12 @@ export const deleteTask = async (req, res) => {
 
 // delete all checked Task
 export const deleteAllTask = async (req, res) => {
-  const token = req.headers.cookie?.split("=")[1];
+  //  const token = req.headers.cookie?.split("=")[1];
+  let { token } = req.body;
   try {
     if (!token) return errorHandler(res, 400, "Please Login");
-    const user = checkauthUser(res, token.toString());
+    // const user = checkauthUser(res, token.toString());
+    const user = checkauthUser(res, token);
     let task = await Task.find({
       $and: [{ checked: true }, { creator: user.id }],
     });

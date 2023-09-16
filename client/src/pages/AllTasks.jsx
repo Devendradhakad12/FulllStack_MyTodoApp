@@ -1,29 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/nav";
 import { Link, useLocation } from "react-router-dom";
-import Task from "../components/task";
-import { useFetchAll } from "../hook/useFetch";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import Loader from "../components/loader";
-const Tasks = () => {
+import AllTask from "../components/alltask";
+const AllTasks = () => {
+
   const location = useLocation().pathname.split("/")[2];
   const today = new Date().toDateString();
+  const [projectcoutn ,setProjectCount] = useState(0)
+ 
 
-  const [mytask, setMytask] = useState([]);
-  const { task, loading } = useFetchAll();
-
-  // filter pending or completed tasks
-  useEffect(() => {
-    const filterTask = () => {
-      return location === "pending"
-        ? task.filter((t) => t.checked === false)
-        : task.filter((t) => t.checked !== false);
-    };
-    if (!loading) setMytask(filterTask());
-  }, [task]);
-
-  //if (!loading) console.log(loading, mytask);
+ 
 
   return (
     <>
@@ -32,7 +18,7 @@ const Tasks = () => {
         {/* Heading div */}
         <div className="md:pl-10 pl-[56px] pt-7">
           <h1 className=" font-bold text-[50px] md:w-[40%]  capitalize m-auto">
-            Your <br /> Projects <br /> {location} ({mytask?.length})
+            Your <br /> {location}  <br />  Projects ({projectcoutn})
           </h1>
         </div>
 
@@ -52,24 +38,23 @@ const Tasks = () => {
             </div>
           </div>
         </div>
-
+ 
         {/* Pednding or completed task heading div */}
-        <div className=" flex md:justify-center items-center gap-10 justify-between px-10 py-3">
-          <Link className="md:hidden capitalize font-bold text-[22px]" to="/" >
-          <FontAwesomeIcon icon={faArrowLeftLong} />  {location} Task's
-          </Link>
-          <Link to='/tasks/all'>See All</Link>
+        <div className=" flex md:justify-center items-center gap-10 justify-center px-10 py-3">
+          <h2 className="md:hidden capitalize font-bold text-[22px]">
+            {location} Task's
+          </h2>
+        
         </div>
 
         {/* Tasks */}
         <div className=" bg flex gap-4 md:gap-[100px] justify-center items-center flex-wrap py-12">
-       {
-        loading ? <Loader/> :    <Task today={today} mytask={mytask} location={location} />
-       }
+          <AllTask today={today} location={location} setProjectCount={setProjectCount} />
+      
         </div>
       </div>
     </>
   );
 };
 
-export default Tasks;
+export default AllTasks;

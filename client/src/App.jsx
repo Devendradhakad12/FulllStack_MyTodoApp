@@ -1,11 +1,24 @@
-import { BrowserRouter,Route,Routes } from "react-router-dom"
+import { BrowserRouter,Route,Routes,useNavigate } from "react-router-dom"
 import Login from "./pages/login"
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
 import Tasks from "./pages/Tasks"
 import { Toaster } from "react-hot-toast"
-import Nav from "./components/nav"
+import { useContext, useEffect } from "react"
+import { AuthContext } from "./context/AuthContext"
+import AddTask from "./pages/AddTask"
+import AllTasks from "./pages/AllTasks"
  
+
+const Provider = ({children}) =>{
+const {token} = useContext(AuthContext)
+const navigate = useNavigate()
+if(token !== null) return children
+useEffect(()=>{
+  navigate("/login")
+},[])
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -15,9 +28,11 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/tasks">
-        <Route path="pending"  element={<Tasks />}   />
-        <Route path="completed"  element={<Tasks />}   />
+        <Route path="pending"  element={<Provider><Tasks /></Provider>}   />
+        <Route path="completed"  element={<Provider><Tasks /></Provider>}   />
+        <Route path="all"  element={<Provider><AllTasks /></Provider>}   />
       </Route>
+      <Route path="/addtask" element={<Provider><AddTask/></Provider>} />
     </Routes>
     <Toaster/>
     </BrowserRouter>

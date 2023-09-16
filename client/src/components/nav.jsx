@@ -6,10 +6,10 @@ import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 const Nav = () => {
   const { token, username, email, dispatch } = useContext(AuthContext);
-const handleLogout = () =>{
-  toast.success("You LoggedOut")
-  dispatch({type:"LOGOUT"})
-}
+  const handleLogout = () => {
+    toast.success("You LoggedOut");
+    dispatch({ type: "LOGOUT" });
+  };
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -24,20 +24,24 @@ const handleLogout = () =>{
         </div>
         <div className="leading-5">
           <p className=" opacity-60">{email}</p>
-          <h2 className="text-[25px] font-bold capitalize">{username? username :"Login First"}</h2>
+          <h2 className="text-[25px] font-bold capitalize">
+            {username ? username : "Login First"}
+          </h2>
         </div>
       </div>
 
       <div className="px-10 py-3 flex justify-center items-center">
         <div className="gap-10 sm:flex hidden mr-[50px] font-semibold text-[18px]">
           <Link to="/">Home </Link>
-          {
-            token? <button onClick={handleLogout}>Logout</button>:<>
-             <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/addtask">Add Task </Link>
+          {token ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
             </>
-          }
-         
+          )}
         </div>
 
         {/* navigation for small devices */}
@@ -69,6 +73,21 @@ const handleLogout = () =>{
                   Home
                 </Link>
               </li>
+
+
+              <li className=" mx-3 text-lg leading-9">
+                <Link
+                  to={"/addtask"}
+                  className=" cursor-pointer"
+                  onClick={() => {
+                    setToggle(!toggle);
+                  }}
+                >
+                  Add Task
+                </Link>
+              </li>
+
+
               {!token ? (
                 <li className=" mx-3 text-lg leading-9">
                   <Link
@@ -82,7 +101,14 @@ const handleLogout = () =>{
                   </Link>
                 </li>
               ) : (
-                <button onClick={handleLogout}>Logout</button>
+               <>
+                <li className="mx-3 text-lg leading-9">
+                  <Link to="/tasks/all">All Task</Link>
+                </li>
+                <li className="mx-3 text-lg leading-9">
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+               </>
               )}
             </ul>
           </div>

@@ -7,22 +7,16 @@ import axios from "axios";
 import { url } from "../utils/features";
 import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
-
-// Date Function
-function getDate(d) {
-  let currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() - d);
-  return currentDate.toDateString();
-}
-function getNextDate(d) {
-  let currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + d);
-  return currentDate.toDateString();
-}
+import { useFetchAll } from "../hook/useFetch";
 
 // main Home function
 const Home = () => {
-  const {username, token, dispatch } = useContext(AuthContext);
+  const { task } = useFetchAll();
+
+  // const dateee = new Date(task[0]?.createdAt)
+  //  console.log(dateee.toDateString() === getDate(2))
+
+  const { username, token, dispatch } = useContext(AuthContext);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -33,13 +27,13 @@ const Home = () => {
           email: res.data.user.email,
           token: res.data.token,
         });
-       // toast.success(res.data.message);
+        // toast.success(res.data.message);
       } catch (error) {
         toast.error(error.response.data.message);
         console.log(error);
       }
     };
-    if(!username && token){
+    if (!username && token) {
       getUser();
     }
   }, []);
@@ -75,7 +69,7 @@ const Home = () => {
         {/* Heading Div */}
         <div className="md:pl-10 pl-[56px] pt-7">
           <h1 className=" font-bold text-[50px] md:w-[40%]  m-auto">
-            Your <br /> Projects (5)
+            Your <br /> Projects ({task?.length})
           </h1>
         </div>
 
@@ -91,11 +85,41 @@ const Home = () => {
           })}
         </div>
 
+        {/* Add task button */}
+
+        <div className="flex justify-center items-center">
+          <Link to="/addtask" className="btn">
+            Add Task
+          </Link>
+        </div>
+
+        {/* progress bar */}
+        <div className="pt-10 md:w-[60%] w-[80%] flex justify-center m-auto">
+          <div className="progressBarOutside">
+            <div className="progressBarInside bg-green-700 text-slate-900 w-[45%]">
+              45%
+            </div>
+          </div>
+        </div>
+
         {/* Task completed and pending box */}
 
         <div className="flex gap-4 md:gap-[100px] justify-center items-center flex-wrap py-12">
-          {/* Task Pending box */}
+          {/* All Task box */}
           <div className="homeTaskCompletedBox bg-orange-500">
+            <div>
+              <Link
+                to="/tasks/all"
+                className=" font-bold text-[35px] cursor-pointer"
+              >
+                All
+                <br /> Task <FontAwesomeIcon icon={faArrowRightLong} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Task Pending box */}
+          <div className="homeTaskCompletedBox bg-red-500">
             <div>
               <Link
                 to="/tasks/pending"
@@ -103,13 +127,6 @@ const Home = () => {
               >
                 Task <br /> Pending <FontAwesomeIcon icon={faArrowRightLong} />
               </Link>
-            </div>
-            <div className="pt-10 md:w-[100%] w-[80%] flex justify-center">
-              <div className="progressBarOutside">
-                <div className="progressBarInside bg-green-700 text-slate-900 w-[45%]">
-                  45%
-                </div>
-              </div>
             </div>
           </div>
 
@@ -124,13 +141,6 @@ const Home = () => {
                 <FontAwesomeIcon icon={faArrowRightLong} />
               </Link>
             </div>
-            <div className="pt-10 md:w-[100%] w-[80%] flex justify-center">
-              <div className="progressBarOutside">
-                <div className="progressBarInside bg-orange-700 w-[45%]">
-                  45%
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -139,3 +149,15 @@ const Home = () => {
 };
 
 export default Home;
+
+// Date Function
+function getDate(d) {
+  let currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() - d);
+  return currentDate.toDateString();
+}
+function getNextDate(d) {
+  let currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + d);
+  return currentDate.toDateString();
+}
