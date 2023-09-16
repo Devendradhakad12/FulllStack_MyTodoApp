@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react"
 import { AuthContext } from "./context/AuthContext"
 import AddTask from "./pages/AddTask"
 import AllTasks from "./pages/AllTasks"
+import EditTask from "./pages/EditTask"
  
 
 const Provider = ({children}) =>{
@@ -33,6 +34,7 @@ function App() {
         <Route path="all"  element={<Provider><AllTasks /></Provider>}   />
       </Route>
       <Route path="/addtask" element={<Provider><AddTask/></Provider>} />
+      <Route path="/edittask/:id" element={<Provider><EditTask/></Provider>} />
     </Routes>
     <Toaster/>
     </BrowserRouter>

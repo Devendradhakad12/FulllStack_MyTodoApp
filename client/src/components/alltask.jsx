@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { useFetchAll } from "../hook/useFetch";
 import Loader from "./loader";
+import { Link } from "react-router-dom";
 
 const AllTask = ({ location, setProjectCount }) => {
   const { token } = useContext(AuthContext);
@@ -23,7 +24,7 @@ const AllTask = ({ location, setProjectCount }) => {
    
   }, [task, reload]);
 
-  // check task
+  // check task (update check status)
   const handleChange = async (id, check) => {
     setCurrentTask(id);
     try {
@@ -86,7 +87,7 @@ const AllTask = ({ location, setProjectCount }) => {
 
                 {/* task update and delete buttons */}
                 <div className="absolute bottom-10 flex gap-4">
-                  <button className="bg-blue-600 text-white edbtn">Edit</button>
+                  <Link to={`/edittask/${t._id}`} className="bg-blue-600 text-white edbtn">Edit</Link>
                   {currentTask === t._id ? (
                     <Loader wh={"60px"} />
                   ) : (
