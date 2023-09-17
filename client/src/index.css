@@ -42,7 +42,7 @@
   @apply h-full flex justify-center items-center text-[18px] font-bold  text-center p-0.5 leading-none rounded-full;
 }
 .homeTaskBox {
-  @apply sm:w-[400px] w-[90%] h-[250px]  rounded-xl flex flex-col items-center pt-6;
+  @apply sm:w-[400px] flex-wrap w-full h-full pb-[90px]  rounded-xl flex flex-col items-center pt-6;
 }
 
 .btn {

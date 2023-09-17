@@ -22,7 +22,6 @@ export const cookieSetter = (res, token, set) => {
 };
 
 // checkAuthUser 
- 
 export const checkauthUser = (res,token) =>{
  try {
   const user = jwt.verify(token,process.env.JWT_SECRETE)

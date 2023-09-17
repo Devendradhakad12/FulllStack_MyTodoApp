@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Nav from "../components/nav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { url } from "../utils/features";
@@ -11,6 +11,7 @@ const AddTask = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const hnadleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ const AddTask = () => {
         token,
       });
       toast.success(res.data.message)
+      navigate("/tasks/all")
     } catch (error) {
       console.log(error);
     } finally {

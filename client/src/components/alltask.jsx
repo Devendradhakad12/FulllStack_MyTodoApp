@@ -7,13 +7,11 @@ import { useFetchAll } from "../hook/useFetch";
 import Loader from "./loader";
 import { Link } from "react-router-dom";
 
-const AllTask = ({ location, setProjectCount }) => {
+const AllTask = ({ location, setProjectCount,task, loading, error, reFetch }) => {
   const { token } = useContext(AuthContext);
-  const { task, loading, error, reFetch, refetchload } = useFetchAll();
   const [allTasks, setAllTasks] = useState([]);
   const [reload, setReload] = useState(false);
-  const [currentTask, setCurrentTask] = useState(null);
-
+  const [currentTask, setCurrentTask] = useState(null); 
 
  //console.log(task.reverse())
 
@@ -84,10 +82,10 @@ const AllTask = ({ location, setProjectCount }) => {
                     <h2 className=" font-semibold text-[20px] capitalize text-center">
                       {t.title}
                     </h2>
-                    <p>{t.description}</p>
+                    <p className="">{t.description}</p>
                   </div>
                 </div>
-
+ 
                 {/* task update and delete buttons */}
                 <div className="absolute bottom-10 flex gap-4">
                   <Link to={`/edittask/${t._id}`} className="bg-blue-600 text-white edbtn">Edit</Link>

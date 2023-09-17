@@ -3,23 +3,31 @@ import { useContext, useEffect, useState } from "react";
 import { url } from "../utils/features";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
+
 export const useFetchAll = (path) => {
+
   const { token } = useContext(AuthContext);
   const [task, setTask] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refetchload, setRefetchload] = useState(false);
   const [error, setError] = useState(false);
 
+const [taskCompletion,setTaskcompletion] = useState(0)
   useEffect(() => {
     const fetchTask = async () => {
       setLoading(true);
       try {
         const res = await axios.get(`${url}/task?token=${token}`);
-        setTask(res.data);
+        let checkTask = res.data?.filter((a) => {
+          return a.checked === true;
+        });
+        let taskComplete = Math.floor((checkTask.length / res.data?.length) * 100)
+        setTaskcompletion(taskComplete);
+        setTask(res.data?.reverse());
       } catch (error) {
         toast.error(
           error?.response?.data?.message
-            ? error.response.data.message
+            ? error.response.data.message 
             : error.message
         );
         setError(
@@ -34,12 +42,17 @@ export const useFetchAll = (path) => {
     };
   if(token)  fetchTask();
   }, [path]);
-
+ 
   const reFetch = async () => {
     setRefetchload(true);
     try {
       const res = await axios.get(`${url}/task?token=${token}`);
-      setTask(res.data);
+      let checkTask = res.data?.filter((a) => {
+        return a.checked === true;
+      });
+      let taskComplete = Math.floor((checkTask.length / res.data?.length) * 100)
+      setTaskcompletion(taskComplete);
+      setTask(res.data?.reverse());
     }  catch (error) {
       toast.error(
         error?.response?.data?.message
@@ -53,8 +66,11 @@ export const useFetchAll = (path) => {
       );
       console.log(error);
     } finally {
-      setRefetchload(false);
+      setRefetchload(false); 
     }
   };
-  return { task, loading,error, reFetch, refetchload };
+
+
+
+  return { task, loading,error, reFetch, refetchload ,taskCompletion};
 };

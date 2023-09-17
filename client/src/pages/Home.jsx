@@ -11,11 +11,7 @@ import { useFetchAll } from "../hook/useFetch";
 
 // main Home function
 const Home = () => {
-  const { task } = useFetchAll();
-
-  // const dateee = new Date(task[0]?.createdAt)
-  //  console.log(dateee.toDateString() === getDate(2))
-
+  // find user and set it into  localStorage with the help of useContext
   const { username, token, dispatch } = useContext(AuthContext);
   useEffect(() => {
     const getUser = async () => {
@@ -38,10 +34,17 @@ const Home = () => {
     }
   }, []);
 
+  // fetch task and  task completion percentage
+  const { task, taskCompletion, loading } = useFetchAll();
+ 
+ 
+  // const dateee = new Date(task[0]?.createdAt)
+  //  console.log(dateee.toDateString() === getDate(2))
+
   const data = [
     {
       date: getDate(2).split(" ")[2],
-      month: getDate(2).split(" ")[1],
+      month: getDate(2).split(" ")[1], 
     },
     {
       date: getDate(1).split(" ")[2],
@@ -92,13 +95,24 @@ const Home = () => {
             Add Task
           </Link>
         </div>
-
+ 
         {/* progress bar */}
         <div className="pt-10 md:w-[60%] w-[80%] flex justify-center m-auto">
-          <div className="progressBarOutside">
-            <div className="progressBarInside bg-green-700 text-slate-900 w-[45%]">
-              45%
-            </div>
+          <div className="progressBarOutside flex relative">
+            <div
+              className={`progressBarInside bg-green-700 text-slate-900 `}
+              style={{ width: `${taskCompletion}%` , display:`${taskCompletion === 0 ? "none" : "inline"}` }}
+            ></div>
+            {taskCompletion !== NaN ? (
+              <div className="pl-3 absolute top-1 left-[40%] font-bold text-center">
+                {" "}
+                {taskCompletion}% Done
+              </div>
+            ) : (
+              <div className="pl-3 absolute top-1 left-[40%] font-bold text-center">
+               0% Done
+              </div>
+            )}
           </div>
         </div>
 
