@@ -36,7 +36,8 @@ const Home = () => {
 
   // fetch task and  task completion percentage
   const { task, taskCompletion, loading } = useFetchAll();
- 
+ console.log(task)
+ console.log(taskCompletion)
  
   // const dateee = new Date(task[0]?.createdAt)
   //  console.log(dateee.toDateString() === getDate(2))
@@ -105,12 +106,12 @@ const Home = () => {
             ></div>
             {taskCompletion !== NaN ? (
               <div className="pl-3 absolute top-1 left-[40%] font-bold text-center">
-                {" "}
-                {taskCompletion}% Done
+                {loading ? " Loading...." : <>{taskCompletion}% Done </>}
+              
               </div>
             ) : (
               <div className="pl-3 absolute top-1 left-[40%] font-bold text-center">
-               0% Done
+                           {loading ? " Loading...." : <>0% Done </>}
               </div>
             )}
           </div>
