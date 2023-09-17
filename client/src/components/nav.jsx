@@ -88,8 +88,6 @@ const Nav = () => {
                   Add Task
                 </Link>
               </li>
-
-
               {!token ? (
                 <li className=" mx-3 text-lg leading-9">
                   <Link

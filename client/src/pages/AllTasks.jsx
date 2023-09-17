@@ -27,7 +27,7 @@ const AllTasks = () => {
         </div>
 
         {/* ProgressBar Div */}
-        <div className="p-10 md:w-[50%] w-[100%] flex justify-center m-auto">
+        <div className="p-7 md:w-[50%] w-[100%] flex justify-center m-auto">
           <div className="progressBarOutside flex relative">
             <div
               className={`progressBarInside bg-orange-500 text-slate-900 `}
@@ -56,7 +56,7 @@ const AllTasks = () => {
         </div>
 
         {/* Tasks */}
-        <div className=" bg flex gap-4 md:gap-[100px] justify-center items-center flex-wrap py-12">
+        <div className="bg">
           <AllTask
             today={today}
             task={task}

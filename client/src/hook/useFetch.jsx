@@ -21,8 +21,8 @@ const [taskCompletion,setTaskcompletion] = useState(0)
         let checkTask = res.data?.filter((a) => {
           return a.checked === true;
         });
-        let taskComplete = Math.floor((checkTask.length / res.data?.length) * 100)
-        setTaskcompletion(taskComplete);
+        let taskComplete = Math.floor((checkTask?.length / res.data?.length) * 100)
+        if(taskComplete.toString() !== 'NaN')  setTaskcompletion(taskComplete); else setTaskcompletion(0);
         setTask(res.data?.reverse());
       } catch (error) {
         toast.error(
@@ -41,6 +41,7 @@ const [taskCompletion,setTaskcompletion] = useState(0)
       }
     };
   if(token)  fetchTask();
+  if(!token) setLoading(false)
   }, [path]);
  
   const reFetch = async () => {
@@ -50,8 +51,8 @@ const [taskCompletion,setTaskcompletion] = useState(0)
       let checkTask = res.data?.filter((a) => {
         return a.checked === true;
       });
-      let taskComplete = Math.floor((checkTask.length / res.data?.length) * 100)
-      setTaskcompletion(taskComplete);
+      let taskComplete = Math.floor((checkTask?.length / res.data?.length) * 100)
+    if(taskComplete.toString() !== 'NaN')  setTaskcompletion(taskComplete); else setTaskcompletion(0);
       setTask(res.data?.reverse());
     }  catch (error) {
       toast.error(

@@ -23,7 +23,7 @@ const Tasks = () => {
     if (!loading) setMytask(filterTask());
   }, [task]);
 
-  //if (!loading) console.log(loading, mytask);
+  //if (!loading) console.log(loading, mytask); 
 
   return (
     <>
@@ -74,14 +74,16 @@ const Tasks = () => {
         </div>
 
         {/* Tasks */}
-        <div className=" bg flex gap-4 md:gap-[100px] justify-center items-center flex-wrap py-12">
+        <div className="bg ">
           {loading ? (
-            <Loader />
+         <div className="flex justify-center">   <Loader /></div>
           ) : (
             <Task
               today={today}
               error={error}
+              task={task}
               mytask={mytask}
+              setMytask={setMytask}
               location={location}
             />
           )}

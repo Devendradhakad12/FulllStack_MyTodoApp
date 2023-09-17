@@ -8,9 +8,9 @@ import { url } from "../utils/features";
 import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
 import { useFetchAll } from "../hook/useFetch";
-
-// main Home function
+ 
 const Home = () => {
+
   // find user and set it into  localStorage with the help of useContext
   const { username, token, dispatch } = useContext(AuthContext);
   useEffect(() => {
@@ -36,34 +36,6 @@ const Home = () => {
 
   // fetch task and  task completion percentage
   const { task, taskCompletion, loading } = useFetchAll();
-  //console.log(task)
-  //console.log(taskCompletion)
-
-  // const dateee = new Date(task[0]?.createdAt)
-  //  console.log(dateee.toDateString() === getDate(2))
-
-  const data = [
-    {
-      date: getDate(2).split(" ")[2],
-      month: getDate(2).split(" ")[1],
-    },
-    {
-      date: getDate(1).split(" ")[2],
-      month: getDate(1).split(" ")[1],
-    },
-    {
-      date: getDate(0).split(" ")[2],
-      month: getDate(0).split(" ")[1],
-    },
-    {
-      date: getNextDate(1).split(" ")[2],
-      month: getNextDate(1).split(" ")[1],
-    },
-    {
-      date: getNextDate(2).split(" ")[2],
-      month: getNextDate(2).split(" ")[1],
-    },
-  ];
 
   return (
     <>
@@ -71,26 +43,14 @@ const Home = () => {
 
       <div className="h-full bg">
         {/* Heading Div */}
-        <div className="md:pl-10 pl-[56px] pt-7">
+        <div className="md:pl-10 pl-[56px] pt-7 pb-6">
           <h1 className=" font-bold text-[50px] md:w-[40%]  m-auto">
             Your <br /> Projects ({task?.length})
           </h1>
         </div>
 
-        {/* Date Div */}
-        <div className=" flex gap-4 justify-center items-center py-10 px-10 flex-wrap">
-          {data.map((i) => {
-            return (
-              <div className="box cursor-pointer" key={i.date}>
-                <h2 className="text-[25px] font-bold">{i.date}</h2>
-                <h3 className=" font-semibold">{i.month}</h3>
-              </div>
-            );
-          })}
-        </div>
 
         {/* Add task button */}
-
         <div className="flex justify-center items-center">
           <Link to="/addtask" className="btn">
             Add Task
@@ -167,14 +127,3 @@ const Home = () => {
 
 export default Home;
 
-// Date Function
-function getDate(d) {
-  let currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() - d);
-  return currentDate.toDateString();
-}
-function getNextDate(d) {
-  let currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + d);
-  return currentDate.toDateString();
-}
