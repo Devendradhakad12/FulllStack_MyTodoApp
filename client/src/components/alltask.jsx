@@ -14,13 +14,16 @@ const AllTask = ({ location, setProjectCount }) => {
   const [reload, setReload] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
 
+
+ //console.log(task.reverse())
+
   // refecth data while updating (checking)
   useEffect(() => {
     setProjectCount(task?.length);
     if (reload) reFetch();
     if (!loading) setAllTasks(task);
     setReload(false);
-    setTimeout(()=>{ setCurrentTask(null)},800)
+    setTimeout(()=>{ setCurrentTask(null)},1000)
    
   }, [task, reload]);
 

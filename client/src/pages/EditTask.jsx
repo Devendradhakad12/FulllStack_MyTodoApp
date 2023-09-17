@@ -20,8 +20,9 @@ const EditTask = () => {
   });
   
   useEffect(() => {
+    if(currentTask[0]?.title !== undefined && currentTask[0]?.title !== null)
     setTitle(currentTask[0]?.title);
-    setDescription(currentTask[0]?.description);
+   setDescription(currentTask[0]?.description);
   }, [task]);
 
   const hnadleSubmit = async (e) => {
