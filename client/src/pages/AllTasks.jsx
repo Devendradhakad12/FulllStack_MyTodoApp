@@ -33,8 +33,8 @@ const AllTasks = () => {
               className={`progressBarInside bg-orange-500 text-slate-900 `}
               style={{
                 width: `${taskCompletion}%`,
-                display: `${taskCompletion === 0 ? "none" : "inline"}`,
-              }}
+              
+              }}//  display: `${taskCompletion === 0 ? "none" : "inline"}`,
             ></div>
             {taskCompletion !== NaN ? (
               <div className="pl-3 absolute top-1 left-[40%] font-bold text-center">
