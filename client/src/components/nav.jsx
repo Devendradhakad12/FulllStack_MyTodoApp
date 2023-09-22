@@ -19,7 +19,7 @@ const Nav = () => {
       <div className="px-5 py-3 flex gap-4 sm:ml-[30px]">
         <div>
           <img
-            src="https://live.staticflickr.com/5252/5403292396_0804de9bcf_b.jpg"
+            src="https://i.pinimg.com/736x/86/63/78/866378ef5afbe8121b2bcd57aa4fb061.jpg"
             alt="img"
             className=" w-[50px] h-[50px] object-cover rounded-full "
           />

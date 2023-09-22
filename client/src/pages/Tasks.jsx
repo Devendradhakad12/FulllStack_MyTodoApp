@@ -52,7 +52,7 @@ const Tasks = () => {
                 width: `${taskCompletion}%`,
               }} 
             ></div>
-            {taskCompletion !== NaN ? (
+            {taskCompletion ? (
               <div className="pl-3 absolute top-1 left-[40%] font-bold text-center">
                 {loading ? " Loading...." : <>{taskCompletion}% Done </>}
               </div>
