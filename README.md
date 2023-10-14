@@ -1,3 +1,3 @@
 ﻿# FulllStack_MyTodoApp
 
- <a href="https://task-treasure.vercel.app" target="_blanck">Live</a>
+ <a href="https://task-treasure.vercel.app" target="_blank">Live</a>
